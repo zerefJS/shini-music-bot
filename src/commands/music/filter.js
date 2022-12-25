@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("filter")
-    .setDescription("Şarkıya filtre eklersiniz. < 3d | bassboost | echo | karaoke | nightcore | vaporwave | flanger | gate | haas | reverse | surround | mcompand | phaser | tremolo | earwax >")
+    .setDescription("Şarkıya filtre eklersiniz.")
     .addStringOption((option) =>
       option.setName("name").setDescription("Filtre adı:").setRequired(true)
     ),

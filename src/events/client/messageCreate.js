@@ -3,7 +3,9 @@ module.exports = {
   async execute(message, client) {
     if (message.author.bot) return;
     
-    // ah shit! here we go again! 
+    if(message.content === "!pong") {
+      message.channel.send("Pong! Ping!")
+    }
   },
 };
 
