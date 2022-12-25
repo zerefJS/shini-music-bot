@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("skip")
-    .setDescription("skip the song"),
+    .setDescription("Sıradaki bir sonraki şarkıya geçer."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,

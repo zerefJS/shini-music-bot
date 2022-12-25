@@ -5,11 +5,20 @@ module.exports = {
     .setName("help")
     .setDescription("Botun komutlarını gösterir."),
   async execute(interaction, client) {
+    const commandHelp = [];
+    for (const command of client.commandsArray) {
+      commandHelp.push(`> **${command.name}: ${command.description}**\n`);
+    }
     const embed = new EmbedBuilder()
-      .setTitle(`${client.user.displayAvatarURL({ dynamic: true })}`)
-      .setColor("Red")
-      .setDescription([...client.commands].map(c => console.log(c.data.name, c.data.description)))
+      .setColor("Random")
+      .setTitle("Shini Yardım Menüsü")
+      .setThumbnail(client.user.displayAvatarURL({ dynamic: true}))
+      .setDescription(commandHelp.join("\n"))
+      .setFooter({
+        text: `${interaction.user.tag} tarafından istendi`,
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+      })
       .setTimestamp();
-    interaction.reply({ embeds: [embed] });
+    return interaction.reply({ embeds: [embed] });
   },
 };

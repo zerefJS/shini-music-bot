@@ -14,10 +14,14 @@ module.exports = {
       .setColor("Red")
       .addFields({
         name: "Uptime",
-        value: ` **${days}gün ${hours}saat ${minutes}dakika ${seconds}saniye**`,
+        value: ` **${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye**`,
         inline: true
       })
-      .setTimestamp();
+      .setTimestamp()
+      .setFooter({
+        text: `${interaction.user.tag} tarafından istendi`,
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+      });
     interaction.reply({ embeds: [embed] });
   },
 };

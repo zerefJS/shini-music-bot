@@ -38,7 +38,7 @@ module.exports = (client) => {
               );
               console.log(chalk.greenBright("[Mongoose Event]: ", event.name));
             } else {
-              connection.once(event.name, (...args) =>
+              connection.on(event.name, (...args) =>
                 event.execute(...args, client)
               );
               console.log(chalk.greenBright("[Mongoose Event]: ", event.name));

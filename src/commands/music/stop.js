@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("stop")
-    .setDescription("stop the song"),
+    .setDescription("Sıradaki tüm şarkıları durdurur ve sesli kanaldan ayrılır."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
