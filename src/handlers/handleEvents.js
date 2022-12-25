@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const fs = require("fs");
 const { connection } = require("mongoose");
 
@@ -17,12 +18,12 @@ module.exports = (client) => {
               client.once(event.name, (...args) =>
                 event.execute(...args, client)
               );
-              console.log("Event: ", event.name);
+              console.log(chalk.blue("[Client Event]: ", event.name));
             } else {
               client.on(event.name, (...args) =>
                 event.execute(...args, client)
               );
-              console.log("Event: ", event.name);
+              console.log(chalk.blue("[Client Event]: ", event.name));
             }
           }
 
@@ -35,12 +36,12 @@ module.exports = (client) => {
               connection.once(event.name, (...args) =>
                 event.execute(...args, client)
               );
-              console.log("Event: ", event.name);
+              console.log(chalk.greenBright("[Mongoose Event]: ", event.name));
             } else {
               connection.once(event.name, (...args) =>
                 event.execute(...args, client)
               );
-              console.log("Event: ", event.name);
+              console.log(chalk.greenBright("[Mongoose Event]: ", event.name));
             }
           }
           break;
@@ -50,7 +51,7 @@ module.exports = (client) => {
               client.distube.on(event.name, (...args) =>
                 event.execute(...args, client)
               );
-              console.log("Event: ", event.name);
+              console.log(chalk.red("[Distube Event]: ", event.name));
           }
           break;
 

@@ -6,7 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("info")
     .setDescription("Bot hakkındaki bilgileri gösterir."),
-  execute: async (interaction, client) => {
+  async execute(interaction, client) {
     const embed = new EmbedBuilder()
       .setThumbnail(client.user.displayAvatarURL())
       .setTitle("Shini Bot Stats")
@@ -92,7 +92,11 @@ module.exports = {
           value: `\`\`\`md\n${os.cpus().map((i) => `${i.model}`)[0]}\`\`\``,
           inline: true,
         }
-      );
+      )
+      .setFooter({
+        text: `${interaction.user.tag} tarafından istendi`,
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+      });
     return interaction.reply({ embeds: [embed] });
   },
 };

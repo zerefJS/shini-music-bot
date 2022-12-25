@@ -2,8 +2,7 @@ const {
   Client,
   Collection,
   GatewayIntentBits,
-  Partials,
-  ShardingManager
+  Partials
 } = require("discord.js");
 
 const { DisTube } = require("distube");

@@ -14,7 +14,7 @@ module.exports = {
 
         if (command?.inSomeVoiceChannel && member !== client) {
           return interaction.reply({
-            content: "Sesli kanala katılmanız gerekiyor.",
+            content: "Aynı sesli kanalda olmamız gerekiyor.",
             ephemeral: true,
           });
         } else if (command?.inClientVoiceChannel && !client) {
@@ -24,7 +24,7 @@ module.exports = {
           });
         } else if (!member && command.inMemberVoiceChannel) {
           return interaction.reply({
-            content: "Aynı sesli kanalda olmamız gerekiyor",
+            content: "Sesli bir kanalda olmalısınız.",
             ephemeral: true,
           });
         } else {

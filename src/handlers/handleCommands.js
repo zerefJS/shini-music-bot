@@ -1,4 +1,5 @@
 const { REST } = require("@discordjs/rest");
+const chalk = require("chalk");
 const { Routes } = require("discord-api-types/v9");
 const fs = require("fs");
 require("dotenv").config();
@@ -16,7 +17,7 @@ module.exports = (client) => {
         const command = require(`../commands/${folder}/${file}`);
         commands.set(command.data.name, command);
         commandsArray.push(command.data.toJSON());
-        console.log("[Command]: ", command.data.name);
+        console.log(chalk.cyan("[Command]: ", command.data.name));
       }
     }
 

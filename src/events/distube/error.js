@@ -1,6 +1,6 @@
 module.exports = {
   name: "error",
-  execute(queue, song, channel, e) {
+  execute(queue, channel, e) {
     try {
       if (channel)
         queue.textChannel.send(
