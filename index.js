@@ -52,8 +52,6 @@ client.commandsArray = [];
 
 const handlerFolders = fs.readdirSync("./src/handlers/");
 for (const folder of handlerFolders) {
-  console.log(folder)
- 
   require(`./src/handlers/${folder}`)(client);
 }
 
