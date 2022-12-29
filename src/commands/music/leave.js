@@ -9,7 +9,7 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   async execute(interaction, client) {
-    await interaction.deferReply({ ephemeral: false });
+    await interaction.deferReply();
 
     const connection = joinVoiceChannel({
       channelId: interaction.member.voice.channelId,

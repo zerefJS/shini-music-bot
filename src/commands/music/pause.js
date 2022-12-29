@@ -23,7 +23,7 @@ module.exports = {
     }
     queue.pause();
 
-    return await interaction.reply({
+    return interaction.reply({
       content: "Şarkı başarılı bir şekilde durduruldu",
     });
   },

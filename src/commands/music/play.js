@@ -36,13 +36,13 @@ module.exports = {
         interaction
       );
 
-      await interaction.editReply({
+      interaction.editReply({
         content: "İşlem başarılı",
       });
 
       setTimeout(() => interaction.deleteReply(), 3000);
 
-      if (interaction.member.voice.channel.type === 13)
+      if (interaction.member.voice.channel.type === 13) // stage channel type 
         interaction.guild.members.me.voice.setSuppressed(false);
     } catch (error) {
       console.log(error);

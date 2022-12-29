@@ -37,8 +37,10 @@ module.exports = {
             name: `Lyrics for ${searches?.fullTitle || queue}`,
           })
           .setDescription(`${lyrics}`)
-          .setFooter({ text: `Request by ${interaction.user.tag
-          }` })
+          .setFooter({
+            text: `${interaction.user.tag} tarafından istendi.`,
+            iconURL: interaction.user.displayAvatarURL({ dynamic: true})
+          })
           .setTimestamp(),
       ],
     });

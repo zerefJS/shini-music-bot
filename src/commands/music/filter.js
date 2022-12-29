@@ -27,7 +27,7 @@ module.exports = {
     }
 
     const newEmbed = new EmbedBuilder()
-      .setColor("black")
+      .setColor("Black")
       .setDescription(
         `Current Queue Filter: \`${queue.filters.names.join(", ") || "Off"}\``
       );

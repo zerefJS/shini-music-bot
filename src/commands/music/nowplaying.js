@@ -11,7 +11,7 @@ module.exports = {
     await interaction.deferReply();
     const queue = await client.distube.getQueue(interaction);
     if (!queue)
-      return await interaction.editReply({
+      return interaction.editReply({
         content: `Sırada şarkı bulunmamaktadır`,
         ephemeral: true,
       });

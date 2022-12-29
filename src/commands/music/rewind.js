@@ -28,7 +28,7 @@ module.exports = {
     try {
       queue.seek(queue.currentTime - time);
       return interaction.editReply({
-        content: `Şarkı ${time}! saniye geri sarıldı.`,
+        content: `Şarkı ${time} saniye geri sarıldı.`,
       });
     } catch (error) {
       console.log(error.errorCode);

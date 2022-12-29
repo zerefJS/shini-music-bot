@@ -38,22 +38,18 @@ module.exports = {
       channel.id === interaction.member.voice.channel.id &&
       interaction.guild.members.me.voice.channel.id === channel.id
     )
-      return await interaction.editReply({
+      return interaction.editReply({
         content: "Şu anda bu kanaldayiz zaten.",
         ephemeral: true,
       });
 
-    function sleep(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
+
     try {
       await queue.pause();
-      await sleep(500);
       await client.distube.voices.join(channel);
       await interaction.member.voice.setChannel(channel);
       if (channel.type === 13)
         await interaction.guild.members.me.voice.setSuppressed(false);
-      await sleep(500);
       await queue.resume();
 
       return interaction.editReply({

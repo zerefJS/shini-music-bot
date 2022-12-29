@@ -5,7 +5,7 @@ module.exports = {
     .setName("help")
     .setDescription("Botun komutlarını gösterir."),
   async execute(interaction, client) {
-    const commandHelp = structuredClone(client.commandsArray)
+    const commandHelp = structuredClone(client.commandsArray);
     const embed = new EmbedBuilder()
       .setColor("Random")
       .setTitle("Shini Yardım Menüsü")

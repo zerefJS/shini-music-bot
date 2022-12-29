@@ -16,13 +16,17 @@ module.exports = {
   inMemberVoiceChannel: true,
   async execute(interaction, client) {
     const volumeNumber = interaction.options.getNumber("number") || 100;
-
     const queue = await client.distube.getQueue(interaction);
     if (!queue)
       return interaction.reply({
         content: "Sırada şarkı bulunmamaktadır",
         ephemeral: true,
       });
+
+    if(volume < 0 && volume > 200) return interaction.reply({
+      content: "Sayı aralığnı aştınız. 0 ile 200 (dahil) arasında bir sayın",
+      ephemeral: true
+    })
 
     queue.setVolume(volumeNumber);
     return await interaction.reply({

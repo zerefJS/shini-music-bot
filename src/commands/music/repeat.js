@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("repeat")
-    .setDescription("Tekrarlama modunu ayarlayın")
+    .setDescription("Tekrarlama modunu ayarlayın.")
     .addStringOption((option) =>
       option
         .setName("mode")

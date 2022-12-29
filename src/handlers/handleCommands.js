@@ -1,7 +1,9 @@
 const { REST } = require("@discordjs/rest");
-const chalk = require("chalk");
 const { Routes } = require("discord-api-types/v9");
+
+const chalk = require("chalk");
 const fs = require("fs");
+
 require("dotenv").config();
 
 module.exports = (client) => {
@@ -23,19 +25,19 @@ module.exports = (client) => {
 
     const clientId = "851543273515253790";
     const rest = new REST({
-        version: "9"
-    }).setToken(process.env.__TOKEN__)
+      version: "9",
+    }).setToken(process.env.__TOKEN__);
 
     try {
-        console.log("[START APPLICATION COMMANDS]: Started refreshing application commands.");
+      console.log(
+        "[START APPLICATION COMMANDS]: Started refreshing application commands."
+      );
 
-        await rest.put(Routes.applicationCommands(clientId), {
-            body: client.commandsArray,
-
-        })
+      await rest.put(Routes.applicationCommands(clientId), {
+        body: client.commandsArray,
+      });
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-
   };
 };

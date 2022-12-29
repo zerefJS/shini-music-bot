@@ -11,15 +11,18 @@ module.exports = {
     await interaction.deferReply({ ephemeral: false });
 
     const queue = await client.distube.getQueue(interaction);
-    if(!queue) return interaction.editReply({
-        content: "Sırada şarkı yok"
-    })
-    const autoplay = queue.toggleAutoplay()
+    if (!queue)
+      return interaction.editReply({
+        content: "Sırada şarkı yok",
+      });
+    const autoplay = queue.toggleAutoplay();
     const embed = new EmbedBuilder()
-      .setDescription(
-        `AutoPlay: \`${autoplay ? 'Açık' : 'Kapalı'}\``
-      )
-      .setColor("Random");
+      .setDescription(`AutoPlay: \`${autoplay ? "Açık" : "Kapalı"}\``)
+      .setColor("Random")
+      .setFooter({
+        text: `${interaction.user.tag} tarafından istendi.`,
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+      });
 
     interaction.editReply({ embeds: [embed] });
   },
