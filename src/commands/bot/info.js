@@ -7,6 +7,20 @@ module.exports = {
     .setName("info")
     .setDescription("Bot hakkındaki bilgileri gösterir."),
   async execute(interaction, client) {
+    const guildResult = await client.shard.fetchClientValues(
+      "guilds.cache.size"
+    );
+
+    const userResult = await client.shard.broadcastEval((c) => {
+      return c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+    });
+
+    const guildCount = guildResult.reduce((acc, guild) => acc + guild, 0);
+    const userCount = userResult.reduce(
+      (acc, memberCount) => acc + memberCount,
+      0
+    );
+
     const embed = new EmbedBuilder()
       .setThumbnail(client.user.displayAvatarURL())
       .setTitle("Shini Bot Stats")
@@ -21,17 +35,7 @@ module.exports = {
         },
         {
           name: "Servers",
-          value: `Serving ${client.shard
-            .fetchClientValues("guilds.cache.size")
-            .then((results) => {
-              console.log(
-                `${results.reduce(
-                  (acc, guildCount) => acc + guildCount,
-                  0
-                )} total guilds`
-              );
-            })
-            .catch(console.error)} servers.`,
+          value: `Serving ${guildCount} total guild servers.`,
           inline: true,
         },
         {
@@ -41,18 +45,16 @@ module.exports = {
         },
         {
           name: "Users",
-          value: `Serving ${client.shard
-            .broadcastEval((c) =>
-              c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)
-            )
-            .then((results) => {
-              return results.reduce((acc, memberCount) => acc + memberCount, 0);
-            })}).catch(console.error)} users.`,
+          value: `Serving ${userCount} users.`,
           inline: true,
         },
         {
           name: "Join Date",
-          value: client.user.createdAt.toLocaleDateString("tr-TR"),
+          value: client.user.createdAt.toLocaleDateString("tr-TR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
           inline: true,
         },
         {

@@ -12,8 +12,8 @@ module.exports = {
     await interaction.deferReply();
 
     try {
-      const userChannelId = interaction.member.voice.channel.id;
-      const clientChannelId = interaction.guild.members.me.voice.channel.id;
+      const userChannelId = interaction?.member?.voice?.channel?.id;
+      const clientChannelId = interaction?.guild?.members?.me?.voice?.channel?.id;
       const queue = await client.distube.getQueue(interaction);
 
       if ((queue?.playing || false) && userChannelId !== clientChannelId)
@@ -36,7 +36,7 @@ module.exports = {
         interaction
       );
 
-      interaction.editReply({
+      await interaction.editReply({
         content: "İşlem başarılı",
       });
 
@@ -45,6 +45,7 @@ module.exports = {
       if (interaction.member.voice.channel.type === 13)
         interaction.guild.members.me.voice.setSuppressed(false);
     } catch (error) {
+      console.log(error);
       return interaction.editReply({
         content: "Bir şeyler yanlış gitti..",
         ephemeral: true,
