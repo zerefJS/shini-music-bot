@@ -3,6 +3,7 @@ const os = require("os");
 require("dotenv").config();
 
 module.exports = {
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("info")
     .setDescription("Bot hakkındaki bilgileri gösterir."),

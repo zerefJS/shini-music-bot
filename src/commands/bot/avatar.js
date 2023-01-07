@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("avatar")
     .setDescription("Kullanıcın avatarını gösterir.")
@@ -24,7 +25,7 @@ module.exports = {
       )
       .setFooter({
         text: `${selectedUser.tag} tarafından istendi`,
-        iconURL: avatar
+        iconURL: avatar,
       })
       .setImage(avatar);
 

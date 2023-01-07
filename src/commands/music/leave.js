@@ -2,12 +2,13 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { joinVoiceChannel } = require("@discordjs/voice");
 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("leave")
-    .setDescription("Sesli kanaldan ayrılır."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
+  cooldown: 20000,
+  data: new SlashCommandBuilder()
+    .setName("leave")
+    .setDescription("Sesli kanaldan ayrılır."),
   async execute(interaction, client) {
     await interaction.deferReply();
 

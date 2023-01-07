@@ -5,6 +5,10 @@ const {
 } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("move")
     .setDescription("Dinleyici ve botu belirtilen sesli kanala taşır.")
@@ -16,14 +20,16 @@ module.exports = {
         .addChannelTypes(ChannelType.GuildVoice, ChannelType.GuildStageVoice)
         .setRequired(true)
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     await interaction.deferReply({ ephemeral: false });
 
     const queue = await client.distube.getQueue(interaction);
     const channel = interaction.options.getChannel("channel");
+
+    if(!channel) return interaction.editReply({
+      content: "Bir kanala ihtiyacım var!",
+      ephemeral: true
+    })
 
     if (
       interaction.member.voice.channel !==

@@ -1,12 +1,13 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("stop")
-    .setDescription("Sıradaki tüm şarkıları durdurur ve sesli kanaldan ayrılır."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
+  cooldown: 20000,
+  data: new SlashCommandBuilder()
+    .setName("stop")
+    .setDescription("Sıradaki tüm şarkıları durdurur ve sesli kanaldan ayrılır."),
   async execute(interaction, client) {
     await interaction.deferReply();
 

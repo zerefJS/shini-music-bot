@@ -1,6 +1,10 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("volume")
     .setDescription("Şarkının ses düzeyini ayarlarsanız. Varsayılan olarak 100 yapar.")
@@ -11,9 +15,6 @@ module.exports = {
         .setMinValue(0)
         .setMaxValue(200)
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     const volumeNumber = interaction.options.getNumber("number") || 100;
     const queue = await client.distube.getQueue(interaction);
@@ -23,7 +24,7 @@ module.exports = {
         ephemeral: true,
       });
 
-    if(volume < 0 && volume > 200) return interaction.reply({
+    if(volumeNumber < 0 && volumeNumber > 200) return interaction.reply({
       content: "Sayı aralığnı aştınız. 0 ile 200 (dahil) arasında bir sayın",
       ephemeral: true
     })

@@ -33,26 +33,19 @@ module.exports = (client) => {
         case "mongo":
           for (const file of eventsFiles) {
             const event = require(`../events/${folder}/${file}`);
-            if (event.once) {
-              connection.once(event.name, (...args) =>
-                event.execute(...args, client)
-              );
-              console.log(chalk.greenBright("[Mongoose Event]: ", event.name));
-            } else {
-              connection.on(event.name, (...args) =>
-                event.execute(...args, client)
-              );
-              console.log(chalk.greenBright("[Mongoose Event]: ", event.name));
-            }
+            connection.on(event.name, (...args) =>
+              event.execute(...args, client)
+            );
+            console.log(chalk.greenBright("[Mongoose Event]: ", event.name));
           }
           break;
         case "distube":
           for (const file of eventsFiles) {
             const event = require(`../events/${folder}/${file}`);
-              client.distube.on(event.name, (...args) =>
-                event.execute(...args, client)
-              );
-              console.log(chalk.red("[Distube Event]: ", event.name));
+            client.distube.on(event.name, (...args) =>
+              event.execute(...args, client)
+            );
+            console.log(chalk.red("[Distube Event]: ", event.name));
           }
           break;
 

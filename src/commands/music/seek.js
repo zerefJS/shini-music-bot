@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("seek")
     .setDescription("Şarkının kaçıncı saniyesinden çalanacağı ayarlanır.")
@@ -11,9 +15,6 @@ module.exports = {
         .setRequired(true)
         .setMinValue(0)
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     await interaction.deferReply();
 

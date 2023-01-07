@@ -1,12 +1,13 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("previous")
-    .setDescription("Bir önceki şarkıya geçer."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
+  cooldown: 20000,
+  data: new SlashCommandBuilder()
+    .setName("previous")
+    .setDescription("Bir önceki şarkıya geçer."),
   async execute(interaction, client) {
     const queue = await client.distube.getQueue(interaction);
     if (!queue)

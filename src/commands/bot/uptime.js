@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("uptime")
     .setDescription("Botun çalışma süresini gösterir."),

@@ -1,15 +1,16 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("filter")
     .setDescription("Şarkıya filtre eklersiniz.")
     .addStringOption((option) =>
       option.setName("name").setDescription("Filtre adı:").setRequired(true)
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     await interaction.deferReply();
     const queue = await client.distube.getQueue(interaction);

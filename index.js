@@ -47,6 +47,7 @@ client.distube = new DisTube(client, {
 });
 
 client.commands = new Collection();
+client.cooldown = new Collection();
 client.commandsArray = [];
 
 const handlerFolders = fs.readdirSync("./src/handlers/");

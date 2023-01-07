@@ -1,12 +1,13 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("shuffle")
-    .setDescription("Sıradaki şarkıları karıştırır."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
+  cooldown: 20000,
+  data: new SlashCommandBuilder()
+    .setName("shuffle")
+    .setDescription("Sıradaki şarkıları karıştırır."),
   async execute(interaction, client) {
     await interaction.deferReply();
     const queue = client.distube.getQueue(interaction);

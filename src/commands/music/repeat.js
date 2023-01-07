@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("repeat")
     .setDescription("Tekrarlama modunu ayarlayın.")
@@ -9,9 +13,6 @@ module.exports = {
         .setName("mode")
         .setDescription("Repeat mode < off | song | queue >")
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     await interaction.deferReply();
 

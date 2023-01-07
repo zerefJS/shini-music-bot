@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("jump")
     .setDescription("Sıradaki istediğiniz numaralı müziğe geçmenizi sağlar.")
@@ -10,9 +14,6 @@ module.exports = {
         .setDescription("İndex sırası.")
         .setRequired(true)
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     await interaction.deferReply();
 

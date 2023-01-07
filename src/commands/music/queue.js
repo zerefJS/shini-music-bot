@@ -3,19 +3,22 @@ const {
   EmbedBuilder,
   ButtonStyle,
 } = require("discord.js");
+
 const { PaginationWrapper } = require("djs-button-pages");
-//Pre-made buttons.
+
 const {
   NextPageButton,
   PreviousPageButton,
 } = require("@djs-button-pages/presets");
+
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("queue")
-    .setDescription("Sırada olan tüm şarkıları gösterir."),
   inSomeVoiceChannel: true,
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
+  cooldown: 20000,
+  data: new SlashCommandBuilder()
+    .setName("queue")
+    .setDescription("Sırada olan tüm şarkıları gösterir."),
   async execute(interaction, client) {
     const queue = await client.distube.getQueue(interaction);
 

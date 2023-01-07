@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
+  inSomeVoiceChannel: true,
+  inClientVoiceChannel: true,
+  inMemberVoiceChannel: true,
+  cooldown: 20000,
   data: new SlashCommandBuilder()
     .setName("rewind")
     .setDescription("Şarkıyı saniye bazında geri sayar.")
@@ -11,9 +15,6 @@ module.exports = {
         .setRequired(true)
         .setMinValue(0)
     ),
-  inSomeVoiceChannel: true,
-  inClientVoiceChannel: true,
-  inMemberVoiceChannel: true,
   async execute(interaction, client) {
     await interaction.deferReply();
 
@@ -31,7 +32,6 @@ module.exports = {
         content: `Şarkı ${time} saniye geri sarıldı.`,
       });
     } catch (error) {
-      console.log(error.errorCode);
       interaction.editReply({
         content: "Sırada şarkı bulunmamaktadır",
         ephemeral: true,
