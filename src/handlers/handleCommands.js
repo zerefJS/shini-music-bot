@@ -35,10 +35,11 @@ module.exports = (client) => {
               return option.setName(name).setDescription(description).setRequired(required)
             })
           } else if (key === "numberOptions") {
-            const { name, description, required = false, minValue = 0, maxValue = null } = command.numberOptions
+            const { name, description, required = false, minValue = null, maxValue = null } = command.numberOptions
             commandHandler.addNumberOption(option => {
               const options = option.setName(name).setDescription(description).setRequired(required)
-              if (maxValue && minValue) option.setMaxValue(maxValue).setMinValue(minValue)
+              if (minValue >= 0) option.setMinValue(minValue)
+              if (maxValue) option.setMaxValue(maxValue)
               return options
             })
           } else if (key === "channelOptions") {
