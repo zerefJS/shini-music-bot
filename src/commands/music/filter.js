@@ -5,13 +5,14 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("filter")
-    .setDescription("Şarkıya filtre eklersiniz.")
-    .addStringOption((option) =>
-      option.setName("name").setDescription("Filtre adı:").setRequired(true)
-    ),
-  async execute(interaction, client) {
+  name: "filter",
+  description: "Şarkıya filtre eklersiniz.",
+  stringOptions: {
+    name: "filter",
+    description: "Filtre adı:",
+    required: true
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply();
     const queue = await client.distube.getQueue(interaction);
     const filter = interaction.options.getString("name") || "off";

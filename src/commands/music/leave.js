@@ -6,10 +6,9 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("leave")
-    .setDescription("Sesli kanaldan ayrılır."),
-  async execute(interaction, client) {
+  name: "leave",
+  description: "Sesli kanaldan ayrılır.",
+  execute: async (interaction, client) => {
     await interaction.deferReply();
 
     const connection = joinVoiceChannel({

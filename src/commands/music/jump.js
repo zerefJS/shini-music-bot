@@ -5,16 +5,14 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("jump")
-    .setDescription("Sıradaki istediğiniz numaralı müziğe geçmenizi sağlar.")
-    .addNumberOption((option) =>
-      option
-        .setName("number")
-        .setDescription("İndex sırası.")
-        .setRequired(true)
-    ),
-  async execute(interaction, client) {
+  name: "jump",
+  description: "Sıradaki istediğiniz numaralı müziğe geçmenizi sağlar.",
+  numberOptions: {
+    name: "number",
+    description: "Şarkının sıradakı numarası",
+    required: true
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply();
 
     const queue = await client.distube.getQueue(interaction);

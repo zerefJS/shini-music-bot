@@ -5,10 +5,9 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("previous")
-    .setDescription("Bir önceki şarkıya geçer."),
-  async execute(interaction, client) {
+  name: "previous",
+  description: "Bir önceki şarkıya geçer.",
+  execute: async (interaction, client) => {
     const queue = await client.distube.getQueue(interaction);
     if (!queue)
       return interaction.reply({
@@ -17,7 +16,7 @@ module.exports = {
       });
 
     try {
-      if (queue.previousSongs || queue.previousSongs.length == 0)
+      if (queue.previousSongs || queue.previousSongs.length === 0)
         return interaction.reply({
           content: "There are no previous Songs!",
           ephemeral: true,

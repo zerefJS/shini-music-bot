@@ -5,17 +5,15 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("volume")
-    .setDescription("Şarkının ses düzeyini ayarlarsanız. Varsayılan olarak 100 yapar.")
-    .addNumberOption((option) =>
-      option
-        .setName("number")
-        .setDescription("0-200 arasında bir sayı girin.")
-        .setMinValue(0)
-        .setMaxValue(200)
-    ),
-  async execute(interaction, client) {
+  name: "volume",
+  description:"Şarkının ses düzeyini ayarlarsanız. Varsayılan olarak 100 yapar.",
+  numberOptions: {
+    name: "number",
+    description: "0-200 arasında bir sayı girin.",
+    minValue: 0,
+    maxValue: 200
+  },
+  execute: async (interaction, client) => {
     const volumeNumber = interaction.options.getNumber("number") || 100;
     const queue = await client.distube.getQueue(interaction);
     if (!queue)

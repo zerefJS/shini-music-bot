@@ -3,13 +3,14 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("play")
-    .setDescription("Müzik çalınmasını sağlar. < URL | Playlist | Şarkı Adı > girmeniz yeterlidir.")
-    .addStringOption((option) =>
-      option.setName("song").setDescription("song name").setRequired(true)
-    ),
-  async execute(interaction, client) {
+  name: "play",
+  description: "Müzik çalınmasını sağlar. < URL | Playlist | Şarkı Adı > girmeniz yeterlidir.",
+  stringOptions: {
+    name: "song",
+    description: "Song name",
+    required: true
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply();
 
     try {

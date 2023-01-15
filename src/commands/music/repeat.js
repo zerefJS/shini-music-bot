@@ -5,15 +5,14 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("repeat")
-    .setDescription("Tekrarlama modunu ayarlayın.")
-    .addStringOption((option) =>
-      option
-        .setName("mode")
-        .setDescription("Repeat mode < off | song | queue >")
-    ),
-  async execute(interaction, client) {
+  name: "repeat",
+  description: "Tekrarlama modunu ayarlayın.",
+  stringOptions: {
+    name: "mode",
+    description: "Repeat mode < off | song | queue >",
+    required: true,
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply();
 
     const queue = await client.distube.getQueue(interaction);

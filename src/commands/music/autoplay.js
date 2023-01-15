@@ -5,10 +5,9 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("autoplay")
-    .setDescription("Oto oynatma özelliğini ayarlar."),
-  async execute(interaction, client) {
+  name: "autoplay",
+  description: "Oto oynatma özelliğini ayarlar.",
+  execute: async (interaction, client) => {
     await interaction.deferReply({ ephemeral: false });
 
     const queue = await client.distube.getQueue(interaction);

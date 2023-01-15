@@ -47,6 +47,7 @@ module.exports = {
             ephemeral: true,
           });
         } else {
+          console.log(command)
           await command
             .execute(interaction, client)
             .catch((err) => console.log(err));

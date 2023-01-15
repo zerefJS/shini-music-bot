@@ -2,10 +2,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("help")
-    .setDescription("Botun komutlarını gösterir."),
-  async execute(interaction, client) {
+  name: "help",
+  description: "Botun komutlarını gösterir.",
+  execute: async (interaction, client) => {
     const embed = new EmbedBuilder()
       .setColor("Random")
       .setTitle("Shini Yardım Menüsü")

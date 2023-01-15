@@ -2,10 +2,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("uptime")
-    .setDescription("Botun çalışma süresini gösterir."),
-  async execute(interaction, client) {
+  name: "uptime",
+  description: "Botun çalışma süresini gösterir.",
+  execute: async (interaction, client) => {
     const days = Math.floor(client.uptime / 86400000);
     const hours = Math.floor(client.uptime / 3600000) % 24;
     const minutes = Math.floor(client.uptime / 60000) % 60;

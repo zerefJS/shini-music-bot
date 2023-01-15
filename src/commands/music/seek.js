@@ -5,17 +5,15 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("seek")
-    .setDescription("Şarkının kaçıncı saniyesinden çalanacağı ayarlanır.")
-    .addNumberOption((option) =>
-      option
-        .setName("time")
-        .setDescription("Seek time")
-        .setRequired(true)
-        .setMinValue(0)
-    ),
-  async execute(interaction, client) {
+  name: "seek",
+  description: "Şarkının kaçıncı saniyesinden çalanacağı ayarlanır.",
+  numberOptions: {
+    name: "time",
+    description: "Seek time",
+    required: true,
+    minValue: 0
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply();
 
     const time = interaction.options.getNumber("time");

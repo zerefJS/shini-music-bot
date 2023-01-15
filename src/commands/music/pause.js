@@ -5,10 +5,9 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("pause")
-    .setDescription("Şarkıyı durdudur. İkinici kez kullanılırsa durdulan şarkıyı devam ettirir."),
-  async execute(interaction, client) {
+  name: "pause",
+  description: "Şarkıyı durdudur. İkinici kez kullanılırsa durdulan şarkıyı devam ettirir.",
+  execute: async (interaction, client) => {
     const queue = await client.distube.getQueue(interaction);
     if (!queue)
       return interaction.reply({

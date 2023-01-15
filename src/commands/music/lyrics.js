@@ -4,13 +4,13 @@ const GeniusClient = new Genius.Client();
 
 module.exports = {
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("lyrics")
-    .setDescription("Şarkının sözlerini bulmanızı sağlar.")
-    .addStringOption((option) =>
-      option.setName("song").setDescription("song name")
-    ),
-  async execute(interaction, client) {
+  name: "lyrics",
+  description: "Şarkının sözlerini bulmanızı sağlar.",
+  stringOptions: {
+    name: "song",
+    description: "Song name"
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply();
     const queue =
       interaction.options.getString("song") ||

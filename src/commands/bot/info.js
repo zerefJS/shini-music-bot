@@ -4,10 +4,9 @@ require("dotenv").config();
 
 module.exports = {
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("info")
-    .setDescription("Bot hakkındaki bilgileri gösterir."),
-  async execute(interaction, client) {
+  name: "info",
+  description: "Bot hakkındaki bilgileri gösterir.",
+  execute: async (interaction, client) => {
     const guildResult = await client.shard.fetchClientValues(
       "guilds.cache.size"
     );

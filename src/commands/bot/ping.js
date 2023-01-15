@@ -2,10 +2,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("ping")
-    .setDescription("Botun gecikme süresini gösterir."),
-  async execute(interaction, client) {
+  name: "ping",
+  description: "Botun gecikme süresini gösterir.",
+  execute: async (interaction, client)  => {
     const message = await interaction.deferReply({
       fetchReply: true,
     });

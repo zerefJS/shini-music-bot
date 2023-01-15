@@ -9,18 +9,15 @@ module.exports = {
   inClientVoiceChannel: true,
   inMemberVoiceChannel: true,
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("move")
-    .setDescription("Dinleyici ve botu belirtilen sesli kanala taşır.")
-    .addChannelOption((option) =>
-      option
-        .setName("channel")
-        .setDescription("Taşınılacak kanal")
-        // Ensure the user can only select a TextChannel for output
-        .addChannelTypes(ChannelType.GuildVoice, ChannelType.GuildStageVoice)
-        .setRequired(true)
-    ),
-  async execute(interaction, client) {
+  name: "move",
+  description:"Dinleyici ve botu belirtilen sesli kanala taşır.",
+  channelOptions: {
+    name: "channel",
+    description: "Taşınılacak kanal",
+    required: true,
+    channelTypes: [ChannelType.GuildVoice, ChannelType.GuildStageVoice]
+  },
+  execute: async (interaction, client) => {
     await interaction.deferReply({ ephemeral: false });
 
     const queue = await client.distube.getQueue(interaction);

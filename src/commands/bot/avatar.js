@@ -2,13 +2,13 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   cooldown: 20000,
-  data: new SlashCommandBuilder()
-    .setName("avatar")
-    .setDescription("Kullanıcın avatarını gösterir.")
-    .addUserOption((option) =>
-      option.setName("user").setDescription("Avatarı Gösterilecek Kişi")
-    ),
-  async execute(interaction, client) {
+  name: "avatar",
+  userOptions: {
+    name: "user",
+    description: "Avatarı Gösterilecek Kişi",
+  },
+  description: "Kullanıcın avatarını gösterir.",
+  execute: async (interaction, client) => {
     await interaction.deferReply();
     const selectedUser =
       interaction.options.getUser("user") || interaction.user;
