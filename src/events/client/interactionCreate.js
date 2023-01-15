@@ -3,7 +3,7 @@ const ms = require("ms");
 module.exports = {
   name: "interactionCreate",
   async execute(interaction, client) {
-    if (interaction.isChatInputCommand()) {
+    if (interaction.isChatInputCommand() && interaction.guildId) {
       const commands = client.commands;
       const cooldowns = client.cooldown;
       const commandName = interaction.commandName;
@@ -11,8 +11,8 @@ module.exports = {
       const command = commands.get(commandName);
       if (!command) return;
       try {
-        const member = interaction.member.voice.channel;
-        const clientVoiceChannel = interaction.guild.members.me.voice.channel;
+        const member = interaction?.member?.voice?.channel;
+        const clientVoiceChannel = interaction?.guild?.members?.me?.voice?.channel;
 
         if (cooldowns.has(cooldownCommand)) {
           const time = ms(cooldowns.get(cooldownCommand) - Date.now(), {
@@ -47,7 +47,6 @@ module.exports = {
             ephemeral: true,
           });
         } else {
-          console.log(command)
           await command
             .execute(interaction, client)
             .catch((err) => console.log(err));
@@ -59,6 +58,11 @@ module.exports = {
           ephemeral: true,
         });
       }
+    } else {
+      interaction.reply({
+        content: "İşlem başarısız",
+        ephemeral: true
+      }).then(() => setTimeout(() => interaction.deleteReply(), 3000))
     }
   },
 };

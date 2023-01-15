@@ -25,7 +25,7 @@ module.exports = {
     const number = interaction.options.getNumber("number");
 
     try {
-      await client.distube.jump(interaction.guild.id, parseInt(number + 1));
+      await client.distube.jump(interaction.guild.id, parseInt(number));
       return await interaction.editReply({
         content: `Succesfly jumped! ${number}`,
       });
