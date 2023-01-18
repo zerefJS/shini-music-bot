@@ -24,6 +24,6 @@ module.exports = {
         iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
       });
 
-    interaction.editReply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed] });
   },
 };

@@ -29,7 +29,7 @@ const client = new Client({
 client.distube = new DisTube(client, {
   leaveOnEmpty: true,
   leaveOnStop: true,
-  emptyCooldown: 30,
+  emptyCooldown: 60,
   leaveOnFinish: true,
   emitNewSongOnly: true,
   plugins: [

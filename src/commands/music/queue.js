@@ -1,5 +1,4 @@
 const {
-  SlashCommandBuilder,
   EmbedBuilder,
   ButtonStyle,
 } = require("discord.js");

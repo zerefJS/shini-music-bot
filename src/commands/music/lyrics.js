@@ -1,6 +1,19 @@
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+const {
+  EmbedBuilder,
+  ButtonStyle
+} = require("discord.js");
+
+const { PaginationWrapper } = require("djs-button-pages");
+
+const {
+  NextPageButton,
+  PreviousPageButton,
+} = require("@djs-button-pages/presets");
+
 const Genius = require("genius-lyrics");
 const GeniusClient = new Genius.Client();
+const _ = require("lodash");
+
 
 module.exports = {
   cooldown: 20000,
@@ -11,16 +24,18 @@ module.exports = {
     description: "Song name"
   },
   execute: async (interaction, client) => {
-    await interaction.deferReply();
+    await interaction.deferReply()
     const queue =
-      interaction.options.getString("song") ||
-      (await client.distube.getQueue(interaction)?.songs[0]?.name);
+      interaction.options.getString("song") || await client.distube.getQueue(interaction)?.songs[0]?.name;
 
-    if (!queue)
-      return interaction.editReply({
+    if (!queue) {
+      interaction.reply({
         content: "Lütfen bir şarkı ismi girin",
         ephemeral: true,
       });
+
+      return
+    }
 
     const trackTitle = queue.replace(
       /official|music|video|hd|version|mix|\(|\)/gi,
@@ -29,26 +44,57 @@ module.exports = {
     const actualTrack = await GeniusClient.songs.search(trackTitle);
     const searches = actualTrack[0];
     const lyrics = await searches?.lyrics();
+    const lyric = lyrics.split("\n")
 
-    if (!lyrics)
-      return interaction.editReply({
-        content: "Lyrics bulunmadı",
-        ephemeral: true,
-      });
-    return interaction.editReply({
-      embeds: [
-        new EmbedBuilder()
+    // if (!lyrics) {
+    //   interaction.reply({
+    //     content: "Lyrics bulunmadı",
+    //     ephemeral: true,
+    //   });
+
+    //   return;
+    // }
+
+    try {
+
+      const splitLyrics = _.chunk(lyric, 39);
+
+      let pages = splitLyrics.map((ly) => {
+        let embed = new EmbedBuilder()
           .setColor("Random")
-          .setAuthor({
-            name: `Lyrics for ${searches?.fullTitle || queue}`,
-          })
-          .setDescription(`${lyrics}`)
-          .setFooter({
-            text: `${interaction.user.tag} tarafından istendi.`,
-            iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
-          })
-          .setTimestamp(),
-      ],
-    });
+          .setDescription(ly.join("\n"))
+
+          console.log(Array.isArray(ly))
+        return embed;
+      });
+
+      const buttons = [
+        new PreviousPageButton({
+          custom_id: "prev_page",
+          emoji: "◀",
+          style: ButtonStyle.Secondary,
+        }),
+        new NextPageButton({
+          custom_id: "next_page",
+          emoji: "▶",
+          style: ButtonStyle.Secondary,
+        }),
+      ];
+
+
+      const pagination = new PaginationWrapper()
+      .setButtons(buttons)
+      .setEmbeds(pages)
+      .setTime(60000);
+
+    return pagination.interactionReply(interaction);
+
+
+    } catch (error) {
+
+      console.log(error)
+    }
+
+
   },
 };

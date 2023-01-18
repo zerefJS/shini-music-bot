@@ -59,7 +59,7 @@ module.exports = {
         });
       }
     } else {
-      interaction.reply({
+      await interaction.reply({
         content: "İşlem başarısız",
         ephemeral: true
       }).then(() => setTimeout(() => interaction.deleteReply(), 3000))
