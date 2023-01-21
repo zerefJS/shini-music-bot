@@ -24,12 +24,12 @@ module.exports = {
     description: "Song name"
   },
   execute: async (interaction, client) => {
-    await interaction.deferReply()
+    await interaction.deferReply();
     const queue =
       interaction.options.getString("song") || await client.distube.getQueue(interaction)?.songs[0]?.name;
 
     if (!queue) {
-      interaction.reply({
+      await interaction.editReply({
         content: "Lütfen bir şarkı ismi girin",
         ephemeral: true,
       });
@@ -37,36 +37,33 @@ module.exports = {
       return
     }
 
-    const trackTitle = queue.replace(
-      /official|music|video|hd|version|mix|\(|\)/gi,
-      ""
-    );
-    const actualTrack = await GeniusClient.songs.search(trackTitle);
-    const searches = actualTrack[0];
-    const lyrics = await searches?.lyrics();
-    const lyric = lyrics.split("\n")
-
-    // if (!lyrics) {
-    //   interaction.reply({
-    //     content: "Lyrics bulunmadı",
-    //     ephemeral: true,
-    //   });
-
-    //   return;
-    // }
-
     try {
+      const trackTitle = queue.replace(
+        /official|music|video|hd|version|mix|\(|\)/gi,
+        ""
+      );
+      const actualTrack = await GeniusClient.songs.search(trackTitle);
+      const searches = actualTrack[0];
+      const lyrics = await searches?.lyrics();
 
-      const splitLyrics = _.chunk(lyric, 39);
+      if (!lyrics) {
+        interaction.editReply({
+          content: "Lyrics bulunmadı",
+          ephemeral: true,
+        });
 
-      let pages = splitLyrics.map((ly) => {
-        let embed = new EmbedBuilder()
-          .setColor("Random")
-          .setDescription(ly.join("\n"))
+        return;
+      }
 
-          console.log(Array.isArray(ly))
-        return embed;
-      });
+      const lyric = lyrics.split("\n")
+      const splitLyrics = _.chunk(lyric, 40);
+        
+      const pages = splitLyrics.map((ly) => {
+            let embed = new EmbedBuilder()
+              .setColor("Random")
+              .setDescription(ly.join("\n"));
+            return embed;
+          });
 
       const buttons = [
         new PreviousPageButton({
@@ -81,20 +78,13 @@ module.exports = {
         }),
       ];
 
-
       const pagination = new PaginationWrapper()
-      .setButtons(buttons)
-      .setEmbeds(pages)
-      .setTime(60000);
-
-    return pagination.interactionReply(interaction);
-
-
+        .setButtons(buttons)
+        .setEmbeds(pages)
+        .setTime(60000);
+      await pagination.interactionReply(interaction);
     } catch (error) {
-
       console.log(error)
     }
-
-
   },
 };

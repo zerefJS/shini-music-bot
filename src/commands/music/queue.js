@@ -18,10 +18,11 @@ module.exports = {
   name: "queue",
   description: "Sırada olan tüm şarkıları gösterir.",
   execute: async (interaction, client) => {
+    await interaction.deferReply();
     const queue = await client.distube.getQueue(interaction);
 
     if (!queue)
-      return interaction.reply({
+      return interaction.editReply({
         content: "Sırada şarkı bulunmamaktadır",
         ephemeral: true,
       });
@@ -42,19 +43,12 @@ module.exports = {
         }),
       ];
 
-      for (let i = 0; i < queue?.songs?.length || 0; i += 20) {
+      for (let i = 0; i < queue.songs.length; i += 20) {
         let song = queue.songs
           .slice(i === 0 ? i : i + 1, i === 0 ? i + 20 : i + 21)
           .map(
             (song, index) =>
-              `${index + i === 0 ? "Playing:" : `${index + i}.`} ${`[${
-                song.name.length > 50
-                  ? song.name
-                      .replace("[", "")
-                      .replace("]", "")
-                      .substring(0, 49) + "..."
-                  : song.name.replace("[", "").replace("]", "")
-              }](${song.url})`} - \`${song.formattedDuration}\``
+              `${index + i === 0 ? "Playing:" : `${index + i}.`} ${`[${song.name}](${song.url})`} - \`${song.formattedDuration}\``
           )
           .join("\n");
 
@@ -77,7 +71,7 @@ module.exports = {
         .setEmbeds(songEmbeds)
         .setTime(60000);
 
-      return pagination.interactionReply(interaction);
+      await pagination.interactionReply(interaction);
     } catch (error) {
       console.log(error);
     }

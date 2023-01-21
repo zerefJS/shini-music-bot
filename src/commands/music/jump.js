@@ -25,12 +25,12 @@ module.exports = {
     const number = interaction.options.getNumber("number");
 
     try {
-      await client.distube.jump(interaction.guild.id, parseInt(number));
-      return await interaction.editReply({
+      await client.distube.jump(interaction.guild.id, parseInt(number + 1));
+      await interaction.editReply({
         content: `Succesfly jumped! ${number}`,
       });
     } catch (error) {
-      return await interaction.editReply({
+      await interaction.editReply({
         content: `Beklenmedik bir hata oluştu`,
         ephemeral: true,
       });
