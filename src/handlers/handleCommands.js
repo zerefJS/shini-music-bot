@@ -31,6 +31,7 @@ module.exports = (client) => {
             })
           } else if (key === "stringOptions") {
             const { name, description, required = false } = command.stringOptions
+            console.log({...command.stringOptions})
             commandHandler.addStringOption(option => {
               return option.setName(name).setDescription(description).setRequired(required)
             })

@@ -15,7 +15,7 @@ module.exports = {
   execute: async (interaction, client) => {
     await interaction.deferReply();
     const queue = await client.distube.getQueue(interaction);
-    const filter = interaction.options.getString("name") || "off";
+    const filter = interaction.options.getString("filter") || "off";
 
     if (filter === "off" && queue.filters.size) queue.filters.clear();
     if (Object.keys(client.distube.filters).includes(filter)) {
